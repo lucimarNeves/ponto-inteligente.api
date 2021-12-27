@@ -12,17 +12,15 @@ import com.ponto.inteligente.api.entities.Funcionario;
 import com.ponto.inteligente.api.security.JwtUserFactory;
 import com.ponto.inteligente.api.services.FuncionarioService;
 
-
 @Service
-public class JwtUserDetailsServiceImpl implements UserDetailsService{
-	
+public class JwtUserDetailsServiceImpl implements UserDetailsService {
+
 	@Autowired
 	private FuncionarioService funcionarioService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<Funcionario> funcionario = funcionarioService.buscarPorEmail(username); 
-			
+		Optional<Funcionario> funcionario = funcionarioService.buscarPorEmail(username);
 
 		if (funcionario.isPresent()) {
 			return JwtUserFactory.create(funcionario.get());

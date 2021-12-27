@@ -1,23 +1,7 @@
 package com.ponto.inteligente.api;
 
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.stereotype.Component;
-
-import com.ponto.inteligente.api.entities.Empresa;
-import com.ponto.inteligente.api.entities.Funcionario;
-import com.ponto.inteligente.api.entities.Lancamento;
-import com.ponto.inteligente.api.enums.PerfilEnum;
-import com.ponto.inteligente.api.enums.TipoEnum;
-import com.ponto.inteligente.api.repositories.EmpresaRepository;
-import com.ponto.inteligente.api.repositories.FuncionarioRepository;
-import com.ponto.inteligente.api.repositories.LancamentoRepository;
-import com.ponto.inteligente.api.utils.PasswordUtils;
 
 
 @SpringBootApplication //(exclude = { SecurityAutoConfiguration.class })

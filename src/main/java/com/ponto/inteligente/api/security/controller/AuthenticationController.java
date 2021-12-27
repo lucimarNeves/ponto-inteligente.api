@@ -30,23 +30,22 @@ import com.ponto.inteligente.api.security.utils.JwtTokenUtil;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class AuthenticationController {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
 	private static final String TOKEN_HEADER = "Authorization";
 	private static final String BEARER_PREFIX = "Bearer ";
-	
-	
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	/**
 	 * Gera e retorna um novo token JWT.
 	 * 
@@ -109,6 +108,5 @@ public class AuthenticationController {
 		response.setData(new TokenDto(refreshedToken));
 		return ResponseEntity.ok(response);
 	}
-
 
 }

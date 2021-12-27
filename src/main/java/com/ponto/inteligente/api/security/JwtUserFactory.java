@@ -11,10 +11,9 @@ import com.ponto.inteligente.api.enums.PerfilEnum;
 
 public class JwtUserFactory {
 
-	public JwtUserFactory() {
-	
+	private JwtUserFactory() {
 	}
-	
+
 	/**
 	 * Converte e gera um JwtUser com base nos dados de um funcionário.
 	 * 
@@ -37,6 +36,5 @@ public class JwtUserFactory {
 		authorities.add(new SimpleGrantedAuthority(perfilEnum.toString()));
 		return authorities;
 	}
-	
 
 }

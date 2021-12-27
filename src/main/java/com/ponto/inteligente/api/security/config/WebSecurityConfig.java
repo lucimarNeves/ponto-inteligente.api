@@ -1,5 +1,6 @@
 package com.ponto.inteligente.api.security.config;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,19 +24,18 @@ import com.ponto.inteligente.api.security.filters.JwtAuthenticationTokenFilter;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private JwtAuthenticationEntryPoint unauthorizedHandler;
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
 
 	@Autowired
 	public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-		authenticationManagerBuilder.userDetailsService(this.userDetailsService);
+		authenticationManagerBuilder.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
 	}
-
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -54,18 +54,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-		.and()
-		.sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().authorizeRequests()
-		.antMatchers("/auth/**", "/api/cadastrar-pj", "/api/cadastrar-pf", "/v2/api-docs",
-				"/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**")
-		.permitAll().anyRequest().authenticated();
-		httpSecurity.addFilterBefore(authenticationTokenFilterBean(),
-		UsernamePasswordAuthenticationFilter.class);
+		httpSecurity.csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+				.antMatchers("/auth/**", "/api/cadastrar-pj", "/api/cadastrar-pf", "/v2/api-docs",
+						"/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**")
+				.permitAll().anyRequest().authenticated();
+		httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 		httpSecurity.headers().cacheControl();
 	}
-
 
 }
